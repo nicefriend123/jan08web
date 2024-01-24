@@ -15,15 +15,31 @@
 	$(document).ready(function() {
 		//댓글 수정하기
 		$(".commentEdit").click(function(){
-			alert("수정하시겠습니까?");
+			//alert("수정하시겠습니까?");
 			if(confirm('수정하시겠습니까?')){
 				//필요한 값 cno 잡기 / 수정한 내용 + 로그인 --> 서블릿에서 정리
 				let cno = $(this).siblings(".cno").val();
-				let comment = $(this).closest(".chead").next().text();
-				alert(cno + ":" + comment)
+				let comment = $(this).parents(".chead").next(); //나중에 html변경 태그는 무조건 object라고 뜸
+				//alert(cno + ":" + comment);
+					  function addBR(str) {
+	                return str.replaceAll("<br>", "\r\n" );
+	            } // 개행태그 문자로 바꿔주기
+	            $(this).prev().hide();
+				$(this).hide();
+				comment.css('height','110');
+				comment.css('padding-top','10px');
+				comment.css('backgroundColor','#c1c1c1');
+				let recommentBox = '<div class="recommentBox">';
+				recommentBox += '<form action="./CommentEdit" method="post">';
+				recommentBox += '<textarea class="commentcontent" name="comment">' + addBR(comment.html()) + '</textarea>';
+				recommentBox += '<input type ="hidden" name = "cno" value ="' +cno+ '">';
+				recommentBox += '<button class="comment-btn" type = "submit">댓글 수정</button>';
+				recommentBox += '</form></div>';
+				
+				comment.html(recommentBox);
+				
 			}
 		});
-		
 		
 		//댓글 삭제 버튼을 눌렀습니다.ajax
 		$(".commentDelete").click(function(){

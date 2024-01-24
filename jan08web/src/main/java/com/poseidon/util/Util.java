@@ -80,6 +80,7 @@ public class Util {
 		   
 		   return str;
 	}
+	   //엔터키 처리
 	   public static String addBR(String str) {
 		      return str.replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
 		   }

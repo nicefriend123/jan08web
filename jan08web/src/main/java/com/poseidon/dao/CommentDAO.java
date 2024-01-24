@@ -64,6 +64,8 @@ public class CommentDAO extends AbstractDAO {
 			pstmt.setString(3, dto.getMid());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(null, pstmt, con);
 		}
 		
 		return result;
