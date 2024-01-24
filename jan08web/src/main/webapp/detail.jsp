@@ -12,6 +12,25 @@
 <script type="text/javascript" src="./js/menu.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
+			function del() {
+				//alert("삭제를 눌렀습니다.");
+				var ch = confirm("글을 삭제하시겠습니까?");
+				if (ch) {
+					location.href = "./delete?no= ${detail.no }";
+				}
+			}
+			 function update() {
+				if (confirm("글을 수정하시겠습니까?")) {
+					location.href = "./update?no=${detail.no }";
+				}
+			}
+			/* function commentDel(cno) {
+				if (confirm("댓글을 삭제하시겠습니까?")) {
+					location.href = './commentDel?no=${detail.no}&cno='+cno;
+				}
+			} */
+		</script>
+<script type="text/javascript">
 	$(document).ready(function() {
 		//댓글 수정하기
 		$(".commentEdit").click(function(){
@@ -37,7 +56,6 @@
 				recommentBox += '</form></div>';
 				
 				comment.html(recommentBox);
-				
 			}
 		});
 		
@@ -85,6 +103,31 @@
 					}
 				});//end ajax
 			}
+			
+
+			$(".comment-btn").click(function(){
+			$.ajax({
+				//db에 보내 지우는 작업 db에선 1->0으로 바뀐다
+				url : './commentEdit',	//주소
+				type : 'post',			//get, post
+				dataType : 'text',		//수신타입 json
+				data : {comment : addBR(comment.html())  },		//보낼 값
+				success : function(result){ //0,1로 보냄
+					if (result == 1) {
+						//정상 삭제 : this의 부모(.comment)를 찾아서 remove하겠습니다.
+						//let parent =  $(this).closest(".comment").hide();// 부모태그의 내용을 숨김처리 삭제된것처럼
+						//$(this).closest(".comment").remove();
+						//point.remove(); //화면에서 보이는 값을 삭제시켜줌 db에서 삭제는 서블릿에서 수행 hide는 단순히 숨김처리
+						location.href = "./detail?no= ${detail.no }";
+					} else{
+						alert("수정할 수 없습니다.관리자에게 문의 하세요");
+					}
+				},
+				error : function(request, status, error){ //통신오류
+					alert("문제가 발생했습니다.");
+				}
+			});//end ajax
+			});
 		});
 		
 		
@@ -125,7 +168,19 @@
 				form.appendTo("body");
 				form.submit();
 			}
-		});
+		});//댓글쓰기 동적생성 끝
+		
+		//id="commentcontent"
+		//id="comment-btn"
+		//댓글쓰기 창에 쓸 수 있는 글자 표시해주고 넘어가면 더이상 입력 불가로 바꾸기
+		$("#commentcontent").keyup(function(){
+	        let text = $(this).val();
+	        if(text.length > 100){
+	           alert("100자 넘었어요.");
+	           $(this).val(  text.substr(0, 100)   );   
+	        }
+	        $("#comment-btn").text("글쓰기 " + text.length +  "/100");
+	     });
 	});
 </script>
 
@@ -144,8 +199,7 @@
 							<!-- 글작성자 정보 -->
 							<div class="detailWRITE">
 								${detail.write}
-								<c:if
-									test="${sessionScope.mname ne null && detail.mid eq sessionScope.mid }">
+								<c:if test="${sessionScope.mname ne null && detail.mid eq sessionScope.mid }">
 									<!-- 쓴사람 / 쓴사람 id / 접속한사람 id -->
 									<img alt="delete" src="./image/delete.png" onclick="del()">
 									<img alt="edit" src="./image/edit.png" onclick="update()">
@@ -195,31 +249,7 @@
 			</div>
 		</div>
 
-		<script type="text/javascript">
 		
-			function del() {
-				//alert("삭제를 눌렀습니다.");
-				var ch = confirm("글을 삭제하시겠습니까?");
-
-				if (ch) {
-					location.href = "./delete?no= ${detail.no }";
-
-				}
-			}
-			 function update() {
-
-				if (confirm("글을 수정하시겠습니까?")) {
-					location.href = "./update?no=${detail.no }";
-				}
-
-			}
-			
-			/* function commentDel(cno) {
-				if (confirm("댓글을 삭제하시겠습니까?")) {
-					location.href = './commentDel?no=${detail.no}&cno='+cno;
-				}
-			} */
-		</script>
 	</div>
 </body>
 </html>
