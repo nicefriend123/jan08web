@@ -63,7 +63,6 @@ public class CommentDel extends HttpServlet {
 		}
 		
 		PrintWriter pw = response.getWriter(); 
-		//printwriter - ajax에서 보내는 것을 화면에 그대로 찍어줄떄 다른데서 호출하는게 아니라 
 		pw.print(result);
 	}
 }

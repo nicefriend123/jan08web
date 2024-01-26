@@ -49,13 +49,52 @@
 				comment.css('padding-top','10px');
 				comment.css('backgroundColor','#c1c1c1');
 				let recommentBox = '<div class="recommentBox">';
-				recommentBox += '<form action="./CommentEdit" method="post">';
+				//recommentBox += '<form action="./CommentEdit" method="post">';
 				recommentBox += '<textarea class="commentcontent" name="comment">' + addBR(comment.html()) + '</textarea>';
 				recommentBox += '<input type ="hidden" name = "cno" value ="' +cno+ '">';
 				recommentBox += '<button class="comment-btn" type = "submit">댓글 수정</button>';
-				recommentBox += '</form></div>';
+				//recommentBox += '</form>
+				recommentBox += '</div>';
 				
 				comment.html(recommentBox);
+			}
+		});
+		
+		//댓글수정  .comment-btn버튼 눌렀을 때 .cno값, .commentcontent값 가져오는 명령 만들기
+		// 2024-01-25
+		$(document).on('click',".comment-btn", function (){
+			if(confirm('수정하시겠습니까?')){
+				let cno = $(this).prev().val();
+				let recomment = $('.commentcontent').val();
+				let comment = $(this).parents(".ccomment");//댓글 위치
+				$.ajax({
+					url : './recomment',
+					type : 'post',
+					dataType : 'text',
+					data : {'cno': cno, 'comment': recomment},
+					success : function(result){
+						//alert('통신 성공 : ' + result);
+						if(result == 1){
+							//수정된 데이터를 화면에 보여주면 되요.
+							$(this).parent(".recommentBox").remove();
+							comment.css('backgroundColor','#brown');
+							comment.css('min-height','100px');
+							comment.css('height','auto');
+							comment.html(recomment.replace(/(?:\r\n|\r|\n)/g, '<br>'));
+							$(".commentDelete").show();
+							$(".commentEdit").show();
+						} else {
+							alert("문제가 발생했습니다. 화면을 갱신합니다.");
+							//실패 화면 재 로드.
+							//location.href ='./detail?page=${param.page}&no=${param.no}'; 
+							//param url에 나오는 주소 그대로 가져오기
+							location.href='./detail?page=${param.page}&no=${detail.no}';
+						}
+					},
+					error : function(error){
+						alert('문제가 발생했습니다. : ' + error);
+					}
+				});
 			}
 		});
 		
@@ -104,30 +143,6 @@
 				});//end ajax
 			}
 			
-
-			$(".comment-btn").click(function(){
-			$.ajax({
-				//db에 보내 지우는 작업 db에선 1->0으로 바뀐다
-				url : './commentEdit',	//주소
-				type : 'post',			//get, post
-				dataType : 'text',		//수신타입 json
-				data : {comment : addBR(comment.html())  },		//보낼 값
-				success : function(result){ //0,1로 보냄
-					if (result == 1) {
-						//정상 삭제 : this의 부모(.comment)를 찾아서 remove하겠습니다.
-						//let parent =  $(this).closest(".comment").hide();// 부모태그의 내용을 숨김처리 삭제된것처럼
-						//$(this).closest(".comment").remove();
-						//point.remove(); //화면에서 보이는 값을 삭제시켜줌 db에서 삭제는 서블릿에서 수행 hide는 단순히 숨김처리
-						location.href = "./detail?no= ${detail.no }";
-					} else{
-						alert("수정할 수 없습니다.관리자에게 문의 하세요");
-					}
-				},
-				error : function(request, status, error){ //통신오류
-					alert("문제가 발생했습니다.");
-				}
-			});//end ajax
-			});
 		});
 		
 		

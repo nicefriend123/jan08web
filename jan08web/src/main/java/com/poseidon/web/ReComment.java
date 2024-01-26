@@ -14,11 +14,11 @@ import com.poseidon.DTO.CommentDTO;
 import com.poseidon.dao.CommentDAO;
 import com.poseidon.util.Util;
 
-@WebServlet("/commentEdit")
-public class CommentEdit extends HttpServlet {
+@WebServlet("/recomment")
+public class ReComment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public CommentEdit() {
+    public ReComment() {
         super();
     }
 
@@ -26,20 +26,21 @@ public class CommentEdit extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		int result = 0;	
-		
-		if (session.getAttribute("mid") != null && Util.intCheck2(request.getParameter("no")) ) {
+		int result = 0;
+		if (session.getAttribute("mid") != null && Util.intCheck2(request.getParameter("cno"))
+				&& request.getParameter("comment") != null) {
+
 			CommentDTO dto = new CommentDTO();
-			dto.setCno(Util.str2Int2(request.getParameter("no")));
-			dto.setComment(request.getParameter("comment"));
-			
+			dto.setMid((String) session.getAttribute("mid"));
+			dto.setCno(Util.str2Int2(request.getParameter("cno")));
+			dto.setComment(Util.addBR(request.getParameter("comment")));
+
 			CommentDAO dao = new CommentDAO();
 			result = dao.commentEdit(dto);
 		}
-		
-		PrintWriter pw = response.getWriter(); 
+		PrintWriter pw = response.getWriter();
 		pw.print(result);
 	}
+	
 }

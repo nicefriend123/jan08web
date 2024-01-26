@@ -2,6 +2,8 @@ package com.poseidon.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.poseidon.dao.CoffeeDAO;
+
 public class Util {
 
 	// String 값이 들어오면 int타입인지 확인 해보는 메소드
@@ -95,6 +97,6 @@ public class Util {
 			      ip = ip2+"♡"+ip3;
 		}
 		   return ip;
-		
 	}
+
 }

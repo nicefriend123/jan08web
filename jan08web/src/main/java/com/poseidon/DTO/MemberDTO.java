@@ -27,7 +27,7 @@ public class MemberDTO {
 	public void setMname(String mname) {
 		this.mname = mname;
 	}
-	public String getDate() {
+	public String getMdate() {
 		return mdate;
 	}
 	public void setMdate(String mdate) {
