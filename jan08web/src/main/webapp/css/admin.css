@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+body{
+	margin: 0;
+	padding: 0;
+	}
+
+.wrap{
+	width: 100%;
+	height: 100vh; /* 높이는 100%가 안먹는다 vh단위로먹음 전체 다 차지 */
+	display : flex;
+}
+.menu{
+	width: 150px;
+	height: 100vh;
+	background-color: gray;
+}
+.main{
+	width: calc(100% - 150px);
+	height: 100vh;
+	/* background-color: yellow; */
+}
+
+nav{
+	margin-top: 50px;
+}
+
+nav ul{
+	margin:0;
+	padding:0; /* 위에 0으로 초기화 = 클리어 시켜주는 것 일그러짐 방지 */
+	list-style: none;
+}
+nav > ul > li{
+	margin:0;
+	padding:0;
+	margin : 5px 10px; /* 그냥margin만 주면 위부터 시계방향 전부 5px 10px는 위아래 양옆 */
+	padding : 10px 0px; /* 위아래 10px 양옆0px */
+	text-align: left;
+	padding-left: 5px;
+}
+
+nav > ul > li:hover{
+	background-color: #ffffff;
+}
+
+.info{
+	width : 200px;
+	height : 200px;
+	line-height:200px;
+	text-align:center;
+	position : absolute;
+	top: 50%;
+	left:50%;
+	background-color : gray;
+	margin-top : -100px;
+}
