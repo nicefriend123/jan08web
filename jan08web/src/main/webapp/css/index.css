@@ -1,18 +1,16 @@
 @charset "UTF-8";
 /* 공동으로 사용하는 css
-전반적인 모든페이지에 적용할 모양 */
-
-
-body{
+전반적인 모든 페이지에 적용할 모양 */
+body {
 	margin: 0;
 	padding: 0;
 }
 
-article{
+article {
 	margin-top: 50px;
 }
 
-footer{
+footer {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
@@ -22,8 +20,8 @@ footer{
 	text-align: center;
 }
 
-.mainStyle{
+.mainStyle {
 	width: 900px;
-	margin : 0 auto;
+	margin: 0 auto;
 	padding-top: 10px;
 }

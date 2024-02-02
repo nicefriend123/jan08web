@@ -1,11 +1,10 @@
 package com.poseidon.DTO;
 
-import com.poseidon.util.Util;
 
 //게시판 첫 화면 , 리스트
 public class BoardDTO {
 	//컬럼명과 달라도 괜찮기는 하다
-	private int no,count, comment;
+	private int no,count, comment, del;
 	private String title, content, write, date, mid, ip;
 	public int getNo() {
 		return no;
@@ -18,6 +17,18 @@ public class BoardDTO {
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+	public int getComment() {
+		return comment;
+	}
+	public void setComment(int comment) {
+		this.comment = comment;
+	}
+	public int getDel() {
+		return del;
+	}
+	public void setDel(int del) {
+		this.del = del;
 	}
 	public String getTitle() {
 		return title;
@@ -48,12 +59,6 @@ public class BoardDTO {
 	}
 	public void setMid(String mid) {
 		this.mid = mid;
-	}
-	public int getComment() {
-		return comment;
-	}
-	public void setComment(int comment) {
-		this.comment = comment;
 	}
 	public String getIp() {
 		return ip;

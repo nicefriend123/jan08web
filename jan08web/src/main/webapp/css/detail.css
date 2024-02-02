@@ -96,9 +96,7 @@
 .chead{
 	width: 100%;
 	min-height: 30px;
-	background-color: green;
-	color : yellow;
-	
+	background-color: #f0f0f0;
 }
 .cdate, .cname{
 	width: 50%;
@@ -116,14 +114,12 @@
 	min-height: 50px;
 	height: auto;
     padding: 0px 10px;
-    background-color: brown;
-    color : white;
 }
 .commentcontent{
 	margin: 0;
 	width: calc(100% - 100px);
 	min-height: 100px;
-	height:auto;
+	height: auto;
 	padding:5px;
 	border: 0px;
 	float: left;
@@ -139,7 +135,3 @@
 	float: left;
 	border: 0px;
 }
-
-
-
-

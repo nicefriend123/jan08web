@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.poseidon.DTO.BoardDTO;
 import com.poseidon.DTO.MemberDTO;
 
 //로그인, 회원가입, 회원 탈퇴 처리, 회원 정보보기
@@ -19,7 +20,7 @@ public class MemberDAO extends AbstractDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT COUNT(*) AS count, mname FROM member\r\n"
-				+ "WHERE mid=? AND mpw=?";
+				+ "WHERE mid=? AND mpw=? AND mgrade > 4";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -162,5 +163,22 @@ public class MemberDAO extends AbstractDAO {
 		
 		
 		return data;
+	}
+
+	public void changeGrade(MemberDTO dto) {
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE member SET mgrade=? WHERE mno=? ";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getMgrade());
+			pstmt.setInt(2, dto.getMno());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(null, pstmt, con);
+		}
 	}
 }

@@ -170,7 +170,6 @@ public class BoardDAO extends AbstractDAO {
 	public int totalCount() {
 		int result = 0;
 		Connection con = db.getConnection();
-//				DBConnection.getInstance().getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT COUNT(*) FROM boardview";

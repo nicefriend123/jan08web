@@ -8,9 +8,10 @@
 					<li onclick="url('./bootstrap')">부트스트랩</li>
 					<li onclick="url('./info')">info</li>
 					<li onclick="url('./coffee')">NKcoffee</li>
-					<li onclick="url('./team')">팀</li><c:choose><c:when test="${sessionScope.mname eq null}">
-					<li onclick="url('./login')">로그인</li></c:when><c:otherwise>
+					<li onclick="url('./media')">미디어쿼리</li>
+					<li onclick="url('./team')">팀</li>
+					<li onclick="url('./login')">로그인</li>
 					<li onclick="url('./myInfo')">${sessionScope.mname }님</li>
-					<li onclick="url('./logout')">로그아웃</li></c:otherwise></c:choose>
+					<li onclick="url('./logout')">로그아웃</li>
 				</ul>
 			</nav>

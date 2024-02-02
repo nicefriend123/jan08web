@@ -6,7 +6,8 @@ table {
 }
 
 tr:hover {
-	background-color: gray;
+	background-color: #c1c1c1;
+	color: red;
 }
 
 th {
@@ -50,7 +51,8 @@ td {
 	margin: 0 auto;
 	width: 500px;
 	height: 30px;
-	margin-top:10px;
+	/* background-color: gray; */
+	margin-top: 10px;
 	line-height: 30px;
 	text-align: center;
 }
@@ -60,11 +62,12 @@ td {
 	color: white;
 	
 }
-
 span{
 	font-size:small;
-	color : red;
-	font-weight:bolder;
+	color: red;
+	font-weight: bolder;
 	background-color: #c0c0c0;
-	
+	min-width: 20px;
+	height: 10px;
+	border-radius: 15px;
 }
